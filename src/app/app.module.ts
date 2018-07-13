@@ -32,8 +32,9 @@ import { AdminComponent } from './components/admin/admin.component';
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot([
-      {path: 'dashboard', component: DashboardComponent},
-      { path: 'login', component: LoginComponent},
+        { path: '', component: LoginComponent},
+        {path: 'dashboard', component: DashboardComponent},
+        { path: 'login', component: LoginComponent},
         { path: 'register', component: RegisterComponent},
         { path: 'ticket', component: TicketComponent},
         { path: 'admin', component: AdminComponent}
