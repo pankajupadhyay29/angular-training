@@ -37,6 +37,7 @@ import { AdminComponent } from './components/admin/admin.component';
         { path: 'login', component: LoginComponent},
         { path: 'register', component: RegisterComponent},
         { path: 'ticket', component: TicketComponent},
+        { path: 'ticket/:id', component: TicketComponent},
         { path: 'admin', component: AdminComponent}
     ],
       { enableTracing: true },

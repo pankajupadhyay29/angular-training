@@ -25,10 +25,10 @@ export class UserService {
     return this.http.post('/api/ticket', ticket);
   }
 
-  // update(user: User) {
-  //   return this.http.put('/api/users/' + user.id, user);
-  // }
-  //
+  updateTicket(user: User) {
+    return this.http.put('/api/users/' + user.id, user);
+  }
+
   // delete(id: number) {
   //   return this.http.delete('/api/users/' + id);
   // }

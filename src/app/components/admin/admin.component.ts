@@ -11,17 +11,19 @@ export class AdminComponent implements OnInit {
   admin: any = {};
   tickets: Ticket;
   ticketlist: Ticket[] = [];
-
+  loginUser: string;
+  departments: string[];
 
   constructor(private router: Router) {
     this.ticketlist = JSON.parse(localStorage.getItem('tickets'));
     this.loginUser = JSON.parse(localStorage.getItem('loginUser'));
     this.departments = ['HR', 'Admin', 'It', 'L&D'];
   }
-  searchTicket(){
-    this.ticketlist = this.ticketlist.filter(val => {
-      return (val.department === this.admin.department);
-    });
+
+  searchTicket(){ console.log(this.ticketlist);
+      this.ticketlist = JSON.parse(localStorage.getItem('tickets')).filter((val: any) => {
+        return (val.department === this.admin.department);
+      });
   }
 
   ngOnInit() {

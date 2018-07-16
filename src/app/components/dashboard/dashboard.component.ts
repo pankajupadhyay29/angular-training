@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
     this.loginUser = JSON.parse(localStorage.getItem('loginUser'));
     this.ticketlist = JSON.parse(localStorage.getItem('tickets'));
     console.log(this.loginUser);
+    console.log(this.ticketlist);
   }
   ngOnInit() {
     if(this.loginUser == null){

@@ -59,7 +59,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
             // get user by id
             if (request.url.match(/\/api\/users\/\d+$/) && request.method === 'GET') {
-                // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
                 if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
                     // find user by id in users array
                     let urlParts = request.url.split('/');
@@ -107,36 +106,24 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
                 return Observable.of(new HttpResponse({ status: 200 }));
           }
-
-            // delete user
-            if (request.url.match(/\/api\/users\/\d+$/) && request.method === 'DELETE') {
-                if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
-                    // find user by id in users array
-                    let urlParts = request.url.split('/');
-                    let id = parseInt(urlParts[urlParts.length - 1]);
-                    for (let i = 0; i < users.length; i++) {
-                        let user = users[i];
-                        if (user.id === id) {
-                            // delete user
-                            users.splice(i, 1);
-                            localStorage.setItem('users', JSON.stringify(users));
-                            break;
-                        }
-                    }
-                    // respond 200 OK
-                    return Observable.of(new HttpResponse({ status: 200 }));
-                } else {
-                    // return 401 not authorised if token is null or invalid
-                    return Observable.throw('Unauthorised');
+          if (request.url.match(/\/api\/users\/\d+$/) && request.method === 'PUT') {
+            if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+              for (let i = 0; i < tickets.length; i++) {
+                let ticket = tickets[i];
+                if (ticket.id === request.body.id) {
+                   tickets[i] = request.body;
                 }
+              }
+              localStorage.setItem('tickets', JSON.stringify(tickets));
+              return Observable.of(new HttpResponse({ status: 200 }));
             }
-
-            // pass through any requests not handled above
+            else {
+              return Observable.throw('Unauthorised');
+            }
+          }
             return next.handle(request);
 
         })
-
-        // call materialize and dematerialize to ensure delay even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648)
         .materialize()
         .delay(500)
         .dematerialize();
