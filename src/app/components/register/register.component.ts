@@ -10,9 +10,12 @@ import { AlertService, UserService} from '../../services/index';
 export class RegisterComponent {
   loading = false;
   model: any = {};
-  constructor(private router: Router, private alertService: AlertService, private userService: UserService) { }
+  departments: string[];
+  constructor(private router: Router, private alertService: AlertService, private userService: UserService) {
+    this.departments = this.userService.department;
+  }
 
-  register() { console.log(this.model);
+  register() {
     this.loading = true;
     this.userService.create(this.model)
       .subscribe(

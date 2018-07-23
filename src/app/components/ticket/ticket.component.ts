@@ -14,13 +14,12 @@ export class TicketComponent implements OnInit {
   departments: string[];
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private alertService: AlertService, private userService: UserService) {
     this.loginUser = JSON.parse(localStorage.getItem('loginUser'));
-    this.departments = ['HR', 'Admin', 'It', 'L&D'];
-
+    this.departments = this.userService.department;
   }
 
-  createTicket(){
+  createTicket() {
     this.loading = true;
-    if(!this.ticket.id){
+    if (!this.ticket.id) {
       this.userService.createTicket(this.ticket)
         .subscribe(
           data => {
@@ -33,12 +32,12 @@ export class TicketComponent implements OnInit {
             this.loading = false;
           }
         );
-    }else {
+    } else {
       this.userService.updateTicket(this.ticket)
         .subscribe(
           data => {
             console.log(data);
-            this.alertService.success('Ticket has been created successful', true);
+            this.alertService.success('Ticket has been updated successful', true);
             this.router.navigate(['dashboard']);
           },
           error => {
@@ -50,12 +49,12 @@ export class TicketComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.loginUser == null){
+    if (this.loginUser == null) {
       this.router.navigate(['login']);
     }
 
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      if (params.id > 0){
+      if (params.id > 0) {
         const ticketDetails = JSON.parse(localStorage.getItem('tickets')).filter((tk:any) => {
           return (tk.id == params.id);
         });

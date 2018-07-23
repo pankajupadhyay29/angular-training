@@ -1,6 +1,5 @@
 ﻿import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-
 import { AlertService } from '../services/index';
 
 @Component({
@@ -11,7 +10,7 @@ import { AlertService } from '../services/index';
 
 export class AlertComponent implements OnDestroy {
     private subscription: Subscription;
-    message: any;
+    message: string;
 
     constructor(alertService: AlertService) {
       console.log(alertService.getMessage());

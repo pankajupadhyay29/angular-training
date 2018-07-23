@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-// import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
+
 
 @Injectable()
 export class AuthenticationService {
@@ -11,7 +11,7 @@ export class AuthenticationService {
     return this.http.post<any>('/api/authenticate', { username: username, password: password })
       .map(user => {
         if (user && user.token) {
-          localStorage.setItem('currentUser', JSON.stringify(user));
+          localStorage.setItem('loginUser', JSON.stringify(user));
         }
         return user;
       });

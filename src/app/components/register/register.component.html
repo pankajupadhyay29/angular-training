@@ -25,10 +25,9 @@
       <label for="department">Department</label>
       <select name="department" [(ngModel)]="model.department" #department="ngModel" class="form-control" required>
         <option value="">Select</option>
-        <option value="It">It</option>
-        <option value="Admin">Admin</option>
-        <option value="HR">HR</option>
-        <option value="LD">L&D</option>
+        <option *ngFor="let dep of departments" value={{dep}}>
+          {{dep}}
+        </option>
       </select>
       <div *ngIf="f.submitted && !department.valid" class="help-block">Department is required</div>
     </div>
