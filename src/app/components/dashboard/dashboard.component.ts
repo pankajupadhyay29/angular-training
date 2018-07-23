@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { User } from '../../models/user';
 import { Ticket } from '../../models/ticket';
@@ -14,13 +15,14 @@ export class DashboardComponent implements OnInit {
   tickets: Ticket;
   ticketlist: Ticket[] = [];
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private titleService: Title) {
     this.loginUser = JSON.parse(localStorage.getItem('loginUser'));
     this.ticketlist = JSON.parse(localStorage.getItem('tickets'));
     console.log(this.loginUser);
     console.log(this.ticketlist);
   }
   ngOnInit() {
+    this.titleService.setTitle('Bug Tracker | Dashboard');
     if(this.loginUser == null){
       this.router.navigate(['login']);
     }

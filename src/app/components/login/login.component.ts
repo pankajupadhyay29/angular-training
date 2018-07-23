@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute} from '@angular/router';
 
 import { AlertService} from '../../services/alert.service';
@@ -15,7 +16,9 @@ export class LoginComponent implements OnInit {
   model: any = {};
   loading = false;
   returnUrl: string;
+  heading: string = 'Login';
   constructor(
+    private titleService: Title,
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
@@ -35,8 +38,8 @@ export class LoginComponent implements OnInit {
           this.loading = false;
         });
   }
-
   ngOnInit() {
+    this.titleService.setTitle('Bug Tracker | My awesome app');
     this.authenticationService.logout();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }

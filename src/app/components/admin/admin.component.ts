@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import {Ticket} from '../../models/ticket';
+import {UserService} from '../../services';
+
 
 @Component({
   selector: 'app-admin',
@@ -14,10 +17,10 @@ export class AdminComponent implements OnInit {
   loginUser: string;
   departments: string[];
 
-  constructor(private router: Router) {
+  constructor(private titleService: Title,  private userService: UserService, private router: Router) {
     this.ticketlist = JSON.parse(localStorage.getItem('tickets'));
     this.loginUser = JSON.parse(localStorage.getItem('loginUser'));
-    this.departments = ['HR', 'Admin', 'It', 'L&D'];
+    this.departments = this.userService.department;
   }
 
   searchTicket(){ console.log(this.ticketlist);
@@ -27,7 +30,8 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.loginUser == null){
+    this.titleService.setTitle('Bug Tracker | Admin');
+    if (this.loginUser == null) {
       this.router.navigate(['login']);
     }
   }
