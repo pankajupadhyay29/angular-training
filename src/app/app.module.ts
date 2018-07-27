@@ -33,12 +33,12 @@ import { AdminComponent } from './components/admin/admin.component';
     HttpClientModule,
     RouterModule.forRoot([
         { path: '', component: LoginComponent},
-        {path: 'dashboard', component: DashboardComponent},
+        {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
         { path: 'login', component: LoginComponent},
         { path: 'register', component: RegisterComponent},
-        { path: 'ticket', component: TicketComponent},
-        { path: 'ticket/:id', component: TicketComponent},
-        { path: 'admin', component: AdminComponent}
+        { path: 'ticket', component: TicketComponent, canActivate: [AuthGuard]},
+        { path: 'ticket/:id', component: TicketComponent, canActivate: [AuthGuard]},
+        { path: 'admin', component: AdminComponent, canActivate: [AuthGuard]}
     ],
       { enableTracing: true },
     )

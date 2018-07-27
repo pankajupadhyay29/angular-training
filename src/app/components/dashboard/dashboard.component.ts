@@ -21,10 +21,6 @@ export class DashboardComponent implements OnInit {
   }
   ngOnInit() {
     this.titleService.setTitle('Bug Tracker | Dashboard');
-    if(this.loginUser == null){
-      this.router.navigate(['login']);
-    }
-
     this.ticketlist = this.ticketlist.filter(tk => {
       return (tk.department === this.loginUser.department);
     });

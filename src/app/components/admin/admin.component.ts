@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import {Ticket} from '../../models/ticket';
 import {AlertService, UserService} from '../../services';
 
@@ -14,12 +13,10 @@ export class AdminComponent implements OnInit {
   admin: any = {};
   tickets: Ticket;
   ticketlist: Ticket[] = [];
-  loginUser: string;
   departments: string[];
 
-  constructor(private titleService: Title,  private userService: UserService, private alertService: AlertService, private router: Router) {
+  constructor(private titleService: Title,  private userService: UserService, private alertService: AlertService) {
     this.ticketlist = JSON.parse(localStorage.getItem('tickets'));
-    this.loginUser = JSON.parse(localStorage.getItem('loginUser'));
     this.departments = this.userService.department;
   }
 
@@ -35,9 +32,6 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('Bug Tracker | Admin');
-    if (this.loginUser == null) {
-      this.router.navigate(['login']);
-    }
   }
 
   delete(id: number) {

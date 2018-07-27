@@ -11,14 +11,13 @@ import { AlertService, UserService} from '../../services/index';
 export class TicketComponent implements OnInit {
   loading = false;
   ticket: any = {};
-  loginUser: string[];
+
   departments: string[];
   constructor(private titleService: Title,
               private router: Router,
               private activatedRoute: ActivatedRoute,
               private alertService: AlertService,
               private userService: UserService) {
-    this.loginUser = JSON.parse(localStorage.getItem('loginUser'));
     this.departments = this.userService.department;
   }
 
@@ -56,9 +55,6 @@ export class TicketComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('Bug Tracker | Ticket');
-    if (this.loginUser == null) {
-      this.router.navigate(['login']);
-    }
 
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       if (params.id > 0) {
