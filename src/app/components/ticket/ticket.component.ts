@@ -38,6 +38,7 @@ export class TicketComponent implements OnInit {
           }
         );
     } else {
+      console.log(this.ticket);
       this.userService.updateTicket(this.ticket)
         .subscribe(
           data => {
@@ -68,9 +69,5 @@ export class TicketComponent implements OnInit {
       }
     });
   }
-
-
-
-
 
 }

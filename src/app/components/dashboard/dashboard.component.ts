@@ -18,8 +18,6 @@ export class DashboardComponent implements OnInit {
   constructor(private router: Router, private titleService: Title) {
     this.loginUser = JSON.parse(localStorage.getItem('loginUser'));
     this.ticketlist = JSON.parse(localStorage.getItem('tickets'));
-    console.log(this.loginUser);
-    console.log(this.ticketlist);
   }
   ngOnInit() {
     this.titleService.setTitle('Bug Tracker | Dashboard');

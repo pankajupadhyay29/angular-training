@@ -11,8 +11,10 @@ export class RegisterComponent {
   loading = false;
   model: any = {};
   departments: string[];
+  role : string[];
   constructor(private router: Router, private alertService: AlertService, private userService: UserService) {
     this.departments = this.userService.department;
+    this.role = this.userService.role;
   }
 
   register() {

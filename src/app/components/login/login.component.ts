@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute} from '@angular/router';
 
@@ -12,7 +12,6 @@ import { AuthenticationService} from '../../services/authentication.service';
 })
 
 export class LoginComponent implements OnInit {
-
   model: any = {};
   loading = false;
   returnUrl: string;
@@ -29,9 +28,8 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.model.username, this.model.password)
       .subscribe(
         data => {
-          console.log(data);
-          localStorage.setItem('loginUser', JSON.stringify(data));
-          this.router.navigate(['dashboard']);
+          let redirect = (data.role === 'Admin') ? 'admin' : 'dashboard';
+          this.router.navigate([redirect]);
         },
         error => {
           this.alertService.error(error);

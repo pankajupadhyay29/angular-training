@@ -12,7 +12,7 @@
     <strong> Department:  {{loginUser.department}}</strong>
   </div>
 </div>
-<div class="col-lg-2 float-right"><a href="/admin">Admin</a> &nbsp;&nbsp;<a href="/login">Logout</a></div>
+<div class="col-lg-2 float-right"><a href="/login">Logout</a></div>
   <table class="table">
     <thead>
     <tr>
@@ -32,7 +32,7 @@
       <td>{{ticket.title}}</td>
       <td>{{ticket.assignee}}</td>
       <td>{{ticket.department}}</td>
-      <td>{{ticket.createDate}}</td>
+      <td>{{ticket.createDate | date:"MM/dd/yy"}}</td>
       <td>{{ticket.createdBy}}</td>
       <td>{{ticket.status}}</td>
       <td>

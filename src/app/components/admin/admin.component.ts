@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import {Ticket} from '../../models/ticket';
-import {UserService} from '../../services';
+import {AlertService, UserService} from '../../services';
 
 
 @Component({
@@ -17,16 +17,20 @@ export class AdminComponent implements OnInit {
   loginUser: string;
   departments: string[];
 
-  constructor(private titleService: Title,  private userService: UserService, private router: Router) {
+  constructor(private titleService: Title,  private userService: UserService, private alertService: AlertService, private router: Router) {
     this.ticketlist = JSON.parse(localStorage.getItem('tickets'));
     this.loginUser = JSON.parse(localStorage.getItem('loginUser'));
     this.departments = this.userService.department;
   }
 
-  searchTicket(){ console.log(this.ticketlist);
+  searchTicket() {
+    if (this.admin.department !== '0') {
       this.ticketlist = JSON.parse(localStorage.getItem('tickets')).filter((val: any) => {
         return (val.department === this.admin.department);
       });
+    } else {
+      this.ticketlist = JSON.parse(localStorage.getItem('tickets'));
+    }
   }
 
   ngOnInit() {
@@ -34,6 +38,13 @@ export class AdminComponent implements OnInit {
     if (this.loginUser == null) {
       this.router.navigate(['login']);
     }
+  }
+
+  delete(id: number) {
+    this.userService.deleteTicket(id).subscribe(() => {
+      this.ticketlist = JSON.parse(localStorage.getItem('tickets'));
+      this.alertService.success('Ticket delete successful', true);
+    });
   }
 
 

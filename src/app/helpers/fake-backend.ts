@@ -36,7 +36,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                         firstName: user.firstName,
                         lastName: user.lastName,
                         token: 'fake-jwt-token',
-                        department: user.department
+                        department: user.department,
+                        role: user.role
                     };
 
                     return Observable.of(new HttpResponse({ status: 200, body: body }));
@@ -121,6 +122,30 @@ export class FakeBackendInterceptor implements HttpInterceptor {
               return Observable.throw('Unauthorised');
             }
           }
+
+          if (request.url.match(/\/api\/ticket\/\d+$/) && request.method === 'DELETE') {
+            if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+              let urlParts = request.url.split('/');
+              let id = parseInt(urlParts[urlParts.length - 1]);
+              for (let i = 0; i < tickets.length; i++) {
+                let ticket = tickets[i];
+                if (ticket.id === id) {
+                  tickets.splice(i, 1);
+                  localStorage.setItem('tickets', JSON.stringify(tickets));
+                  break;
+                }
+              }
+              return Observable.of(new HttpResponse({ status: 200 }));
+            } else {
+              return Observable.throw('Unauthorised');
+            }
+          }
+
+
+
+
+
+
             return next.handle(request);
 
         })
