@@ -1,0 +1,47 @@
+<h1>
+  Admin
+</h1>
+<div class="col-lg-12 float-left">
+  <form name="form" (ngSubmit)="t.form.valid && searchTicket()" #t="ngForm" class="form-inline" novalidate>
+    <select name="department" [(ngModel)]="admin.department"  #department="ngModel" class="form-control col-lg-2" required>
+      <option value="0" selected="selected">--All--</option>
+      <option *ngFor="let dep of departments" value={{dep}}>
+        {{dep}}
+      </option>
+    </select>
+    <button class="btn btn-primary col-lg-1">Search</button>
+    <div *ngIf="t.submitted && !department.valid" class="help-block">Department is required</div>
+  </form>
+</div>
+<div class="col-lg-2 float-right"><a href="/login">Logout</a>&nbsp;&nbsp;
+  <a href='/dashboard'>Dashboard</a></div>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Title</th>
+    <th>Assignee</th>
+    <th>Department</th>
+    <th>CreatedDate</th>
+    <th>Created By</th>
+    <th>Status</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor ="let ticket of ticketlist">
+    <td>{{ticket.id}}</td>
+    <td>{{ticket.title}}</td>
+    <td>{{ticket.assignee}}</td>
+    <td>{{ticket.department}}</td>
+    <td>{{ticket.createDate | date:"MM/dd/yy"}}</td>
+    <td>{{ticket.createdBy}}</td>
+    <td>{{ticket.status}}</td>
+    <td>
+      <a href="/ticket?id={{ticket.id}}">Edit</a>
+      &nbsp;&nbsp;<span (click)=delete(ticket.id); style="color: #007bff;">Delete</span>
+    </td>
+  </tr>
+  </tbody>
+</table>
+

@@ -1,0 +1,44 @@
+<h1>
+  Dashboard.
+</h1>
+<div class="col-lg-6 float-left">
+  <input type="button" class="btn btn-primary" value="Create Ticket" (click)="createTicket();"/>
+</div>
+<div class="col-lg-4 float-left">
+  <div class="col-lg-6">
+    <strong> Welcome {{loginUser.firstName}} {{loginUser.lastName}} </strong>
+  </div>
+  <div class="col-lg-6">
+    <strong> Department:  {{loginUser.department}}</strong>
+  </div>
+</div>
+<div class="col-lg-2 float-right"><a href="/login">Logout</a></div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Assignee</th>
+      <th>Department</th>
+      <th>CreatedDate</th>
+      <th>Created By</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor ="let ticket of ticketlist">
+      <td>{{ticket.id}}</td>
+      <td>{{ticket.title}}</td>
+      <td>{{ticket.assignee}}</td>
+      <td>{{ticket.department}}</td>
+      <td>{{ticket.createDate | date:"MM/dd/yy"}}</td>
+      <td>{{ticket.createdBy}}</td>
+      <td>{{ticket.status}}</td>
+      <td>
+        <a href="/ticket?id={{ticket.id}}">Edit</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+

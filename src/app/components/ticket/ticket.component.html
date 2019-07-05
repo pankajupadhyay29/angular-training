@@ -1,0 +1,40 @@
+<div class="col-md-12 col-md-offset-6">
+  <h2>Create Ticket</h2>
+  <form name="form" (ngSubmit)="t.form.valid && createTicket()" #t="ngForm" novalidate>
+    <div class="form-group" [ngClass]="{ 'has-error': t.submitted && !title.valid }">
+      <label for="title">Title</label>
+      <input type="text" class="form-control" name="title" [(ngModel)]="ticket.title" #title="ngModel" required />
+      <div *ngIf="t.submitted && !title.valid" class="help-block">Title is required</div>
+    </div>
+    <div class="form-group" [ngClass]="{ 'has-error': t.submitted && !summary.valid }">
+      <label for="summary">Summary</label>
+      <textarea type="text" class="form-control" name="summary" [(ngModel)]="ticket.summary" #summary="ngModel" required ></textarea>
+      <div *ngIf="t.submitted && !summary.valid" class="help-block">Summary is required</div>
+    </div>
+    <div class="form-group" [ngClass]="{ 'has-error': t.submitted && !assignee.valid }">
+      <label for="assignee">Assignee</label>
+      <input type="text" class="form-control" name="assignee" [(ngModel)]="ticket.assignee" #assignee="ngModel" required />
+      <div *ngIf="t.submitted && !assignee.valid" class="help-block">Assignee is required</div>
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'has-error': t.submitted && !department.valid }">
+      <label for="department">Department</label>
+      <select name="department" [(ngModel)]="ticket.department" #department="ngModel" class="form-control" required>
+        <option value="">Select</option>
+        <option *ngFor="let dep of departments" value={{dep}}>
+          {{dep}}
+        </option>
+      </select>
+      <div *ngIf="t.submitted && !department.valid" class="help-block">Department is required</div>
+    </div>
+
+    <div class="form-group">
+      <button *ngIf="ticket.id;then Update else Create"></button>
+      <ng-template #Create><button [disabled]="loading" class="btn btn-primary">Create</button></ng-template>
+      <ng-template #Update><button [disabled]="loading" class="btn btn-primary">Update</button></ng-template>
+      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+      <a [routerLink]="['/dashboard']" class="btn btn-link">Cancel</a>
+    </div>
+
+  </form>
+</div>
